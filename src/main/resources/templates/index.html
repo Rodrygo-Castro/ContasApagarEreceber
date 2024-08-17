@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas a Pagar</title>
+</head>
+<body>
+    <h1>Contas a Pagar</h1>
+    <a href="">Nova Conta</a>
+    <br><br>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Total</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="conta : ${listaContas}">
+                <td th:text="${conta.id}">ID CONTA</td>
+                <td th:text="${conta.descricao}">Descricao CONTA</td>
+                <td th:text="${conta.valor}">valor CONTA</td>
+                <td th:text="${conta.data}">Data CONTA</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
