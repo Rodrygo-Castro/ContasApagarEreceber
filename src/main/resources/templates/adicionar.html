@@ -9,7 +9,46 @@
 </head>
 
 <body>
-    <h1>Novo</h1>
+    <div class="panel panel-default" style="padding: 20px;">
+        <div class="panel-heading">
+            <strong>Cadastrar Contas a Pagar</strong>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-horizontal" th:object="${contas}" style="margin: 10px;">
+                <div class="form-group">
+                    <fieldset>
+                        <div class="form-group row">
+                            <div class="col-md-1">
+                                <input type="text" class="form-control input-sm" id="id" th:field="*{id}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" id="descricao" th:field="*{descricao}"
+                                    placeholder="Digite uma descrição">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" id="valor" th:field="*{valor}"
+                                    placeholder="Digite o Valor">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" id="data" th:field="*{data}"
+                                    placeholder="Ex: 01/01/2024r">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-sm btn-danger" th:href="@{adicionar}">Adicionar conta</a>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
