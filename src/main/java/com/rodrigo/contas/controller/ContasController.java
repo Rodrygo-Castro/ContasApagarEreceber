@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rodrigo.contas.model.Contas;
 import com.rodrigo.contas.service.ContasService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/contas")
@@ -35,9 +39,14 @@ public class ContasController {
     }
 
     @PostMapping("/save")
-    public String save(Contas contas) {
+    public ModelAndView save(@Valid @ModelAttribute("contas") Contas contas, BindingResult result) {
+        if (result.hasErrors()) {
+            return add(contas);
+        }
         contasService.save(contas);
-        return "redirect:/contas/listar"; // Redireciona para evitar resubmissão
+
+        ModelAndView mv = new ModelAndView("redirect:/contas/listar");// Redireciona para evitar resubmissão
+        return mv; 
     }
 
 }

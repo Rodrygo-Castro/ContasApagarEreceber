@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Contas {
@@ -16,6 +17,7 @@ public class Contas {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name="descricao")
+    @NotBlank(message= "* Preencha o campo descrição")
     private String descricao;
     private float valor;
     @DateTimeFormat(pattern = "dd/MM/yyyy") // Formato usado no formulário
