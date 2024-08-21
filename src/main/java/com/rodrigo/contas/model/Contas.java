@@ -1,6 +1,8 @@
 package com.rodrigo.contas.model;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +18,8 @@ public class Contas {
     @Column(name="descricao")
     private String descricao;
     private float valor;
-    private LocalDate data;
+    @DateTimeFormat(pattern = "dd/MM/yyyy") // Formato usado no formulário
+    private Date data;
 
     public Long getId() {
         return id;
@@ -36,10 +39,10 @@ public class Contas {
     public void setValor(float valor) {
         this.valor = valor;
     }
-    public LocalDate getData() {
+    public Date getData() {
         return data;
     }
-    public void setData(LocalDate data) {
+    public void setData(Date data) {
         this.data = data;
     }
 }

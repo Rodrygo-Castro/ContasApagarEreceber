@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +32,12 @@ public class ContasController {
         ModelAndView mv = new ModelAndView("adicionar"); // O nome da view deve corresponder ao arquivo HTML no diretório templates
         mv.addObject("contas", contas);
         return mv;
+    }
+
+    @PostMapping("/save")
+    public String save(Contas contas) {
+        contasService.save(contas);
+        return "redirect:/contas/listar"; // Redireciona para evitar resubmissão
     }
 
 }

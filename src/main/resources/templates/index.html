@@ -8,32 +8,35 @@
     <title>Contas a Pagar</title>
 </head>
 
-<body class="container mt-5">
-    <h1 class="mb-4">Contas a Pagar</h1>
-    
-    <a th:href="@{/contas/adicionar}" class="btn btn-primary mb-3">Nova Conta</a>
-    
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Total</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="conta : ${listaContas}">
-                <td th:text="${conta.id}">ID CONTA</td>
-                <td th:text="${conta.descricao}">Descrição CONTA</td>
-                <td th:text="${conta.valor}">Valor CONTA</td>
-                <td th:text="${conta.data}">Data CONTA</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="panel-footer"></div>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Contas a Pagar</h1>
+        
+        <div class="d-flex justify-content-end mb-3">
+            <a th:href="@{/contas/adicionar}" class="btn btn-primary">Nova Conta</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="conta : ${listaContas}">
+                        <td th:text="${conta.id}">ID CONTA</td>
+                        <td th:text="${conta.descricao}">Descrição CONTA</td>
+                        <td th:text="${conta.valor}">Valor CONTA</td>
+                        <td th:text="${#dates.format(conta.data, 'dd/MM/yyyy')}">Data CONTA</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
