@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rodrigo.contas.model.Categoria;
 import com.rodrigo.contas.model.Contas;
+import com.rodrigo.contas.service.CategoriaService;
 import com.rodrigo.contas.service.ContasService;
 
 import jakarta.validation.Valid;
@@ -25,6 +27,8 @@ public class ContasController {
 
     @Autowired
     private ContasService contasService;
+    @Autowired
+    private CategoriaService categoriaService;
 
     @RequestMapping("/listar")
     public String index(@RequestParam(value="search", required = false) String q, ModelMap model) {
@@ -49,6 +53,9 @@ public class ContasController {
     public ModelAndView add(Contas contas) {
         ModelAndView mv = new ModelAndView("adicionar"); // O nome da view deve corresponder ao arquivo HTML no diretório templates
         mv.addObject("contas", contas);
+
+        List<Categoria> categoria = categoriaService.listAll();
+        mv.addObject("categoria_list", categoria);
         return mv;
     }
 

@@ -48,8 +48,18 @@
                         <div class="form-group row">
                             <label for="valor" class="col-sm-2 col-form-label">Valor</label>
                             <div class="col-sm-4">
-                                <input type="number" step="0.01" class="form-control" id="valor" th:field="*{valor}"
+                                <input type="number" step="0.01" class="form-control" name="valor" id="valor" th:field="*{valor}"
                                     placeholder="Digite o Valor">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="categoria" class="col-sm-2 col-form-label">Categoria</label>
+                            <div class="col-sm-4">
+                                <select th:field="*{categoria}" class="form-control">
+                                    <option value="">-- Selecione --</option>
+                                <option th:each="cat : ${categoria_list}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+                                </select>
                             </div>
                         </div>
 
