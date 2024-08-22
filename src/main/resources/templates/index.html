@@ -24,6 +24,7 @@
                         <th scope="col">Descrição</th>
                         <th scope="col">Valor</th>
                         <th scope="col">Data</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,12 @@
                         <td th:text="${conta.descricao}">Descrição CONTA</td>
                         <td th:text="${conta.valor}">Valor CONTA</td>
                         <td th:text="${#dates.format(conta.data, 'dd/MM/yyyy')}">Data CONTA</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-info" th:href="@{/contas/editar/{id}(id=${conta.id})}">Editar</a>
+                                <a class="btn btn-sm btn-danger ml-2" th:href="@{/contas/delete/{id}(id=${conta.id})}" th:data-confirm-delete="|Deseja realmente deletar o registro ${conta.id}|" onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Apagar</a>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
