@@ -21,6 +21,18 @@ public class ContasService {
         return contasRepository.findAll();
     }
 
+    public List<Contas> listAllByDescricao(String descricao) {
+        return contasRepository.findByDescricao(descricao);
+    }
+
+    public List<Contas> listAllLikeDescricao(String descricao) {
+        return contasRepository.findByDescricaoContaining(descricao);
+    }
+
+    public List<Contas> listAllFindbyValor(float valor) {
+        return contasRepository.findByValor(valor);
+    }
+
     public void save(Contas contas) {
         contasRepository.save(contas);
     }

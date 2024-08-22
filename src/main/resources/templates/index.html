@@ -10,7 +10,16 @@
 
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4 text-center">Contas a Pagar</h1>
+        <h1 class="mb-4 text-center">Minhas Contas a Pagar</h1>
+
+        <form class="form-inline mb-4" method="get" th:action="@{/contas/listar}">
+            <div class="input-group">
+                <input type="text" class="form-control" id="descricao" name="search" th:value="${search}" placeholder="Filtrar por descrição ou valor">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
         
         <div class="d-flex justify-content-end mb-3">
             <a th:href="@{/contas/adicionar}" class="btn btn-primary">Nova Conta</a>
@@ -28,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="conta : ${listaContas}">
+                    <tr th:each="conta : ${listContas}">
                         <td th:text="${conta.id}">ID CONTA</td>
                         <td th:text="${conta.descricao}">Descrição CONTA</td>
                         <td th:text="${conta.valor}">Valor CONTA</td>
@@ -36,7 +45,11 @@
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-info" th:href="@{/contas/editar/{id}(id=${conta.id})}">Editar</a>
-                                <a class="btn btn-sm btn-danger ml-2" th:href="@{/contas/delete/{id}(id=${conta.id})}" th:data-confirm-delete="|Deseja realmente deletar o registro ${conta.id}|" onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Apagar</a>
+                                <a class="btn btn-sm btn-danger ml-2" th:href="@{/contas/delete/{id}(id=${conta.id})}" 
+                                    th:data-confirm-delete="|Deseja realmente deletar o registro ${conta.id}?|"
+                                    onclick="return confirm(this.getAttribute('data-confirm-delete'));">
+                                    Apagar
+                                </a>
                             </div>
                         </td>
                     </tr>
