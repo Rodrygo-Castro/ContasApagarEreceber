@@ -20,4 +20,28 @@ public class CategoriaService {
     public List<Categoria> listAll() {
         return categoriaRepository.findAll();
     }
+
+    public List<Categoria> listAllByNome(String nome) {
+        return categoriaRepository.findByNome(nome);
+    }
+
+    public List<Categoria> listAllLikeNome(String nome) {
+        return categoriaRepository.findByNomeContaining(nome);
+    }
+
+    public void save(Categoria categoria) {
+        categoriaRepository.save(categoria);
+    }
+
+    public boolean existsById(Long id) {
+        return categoriaRepository.existsById(id);
+    }
+
+    public Categoria get(Long id) {
+        return categoriaRepository.findById(id).get();
+    }
+
+    public void delete(Long id) {
+        categoriaRepository.deleteById(id);
+    }
 }

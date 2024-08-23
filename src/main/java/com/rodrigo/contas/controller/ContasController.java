@@ -46,12 +46,12 @@ public class ContasController {
         }
         
         model.addAttribute("listContas", listContas);
-        return "index";//aqui vou retornar a view 
+        return "contas/index";//aqui vou retornar a view 
     }
 
     @GetMapping("/adicionar")
     public ModelAndView add(Contas contas) {
-        ModelAndView mv = new ModelAndView("adicionar"); // O nome da view deve corresponder ao arquivo HTML no diretório templates
+        ModelAndView mv = new ModelAndView("contas/adicionar"); // O nome da view deve corresponder ao arquivo HTML no diretório templates
         mv.addObject("contas", contas);
 
         List<Categoria> categoria = categoriaService.listAll();
@@ -64,6 +64,12 @@ public class ContasController {
         if (result.hasErrors()) {
             return add(contas);
         }
+
+        if (contas.getCategoria() == null || !categoriaService.existsById(contas.getCategoria().getId())) {
+            result.rejectValue("categoria", "error.categoria", "Categoria não encontrada.");
+            return add(contas);
+        }
+
         contasService.save(contas);
 
         ModelAndView mv = new ModelAndView("redirect:/contas/listar");// Redireciona para evitar resubmissão

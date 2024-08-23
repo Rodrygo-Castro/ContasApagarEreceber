@@ -21,6 +21,10 @@ public class ContasService {
         return contasRepository.findAll();
     }
 
+    public boolean existsByid(Long id) {
+        return contasRepository.existsById(id);
+    }
+
     public List<Contas> listAllByDescricao(String descricao) {
         return contasRepository.findByDescricao(descricao);
     }

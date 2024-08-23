@@ -27,6 +27,9 @@ public class Categoria {
     @OneToMany(targetEntity= Contas.class, mappedBy= "categoria", fetch=FetchType.LAZY)
     private List<Contas> contas;
 
+    public Categoria() {
+    }
+
     public Categoria(Long id, @NotBlank(message = "* Preencha o campo nome") String nome, List<Contas> contas) {
         this.id = id;
         this.nome = nome;
