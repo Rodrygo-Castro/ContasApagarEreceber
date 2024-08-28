@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +28,18 @@ public class ContasController {
 
     @Autowired
     private ContasService contasService;
+    
     @Autowired
     private CategoriaService categoriaService;
 
-    @RequestMapping("/listar")
-    public String index(@RequestParam(value="search", required = false) String q, ModelMap model) {
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("title", "Página Inicial");
+        return "contas/home"; // Nome da view para a página inicial
+    }
+
+    @GetMapping("/listar")
+    public String index(@RequestParam(value = "search", required = false) String q, ModelMap model) {
         List<Contas> listContas;
 
         if ((q != null) && (q.length() > 0) && (!q.matches("[-+]?[0-9]*\\.?[0-9]+"))) {
@@ -44,14 +52,15 @@ public class ContasController {
             listContas = contasService.listAll();
             model.addAttribute("search", q);
         }
-        
+
         model.addAttribute("listContas", listContas);
-        return "contas/index";//aqui vou retornar a view 
+        return "contas/index"; // Nome da view para a listagem de contas
     }
 
     @GetMapping("/adicionar")
-    public ModelAndView add(Contas contas) {
-        ModelAndView mv = new ModelAndView("contas/adicionar"); // O nome da view deve corresponder ao arquivo HTML no diretório templates
+    public ModelAndView addForm(@RequestParam(value = "id", required = false) Long id) {
+        ModelAndView mv = new ModelAndView("contas/adicionar"); // Nome da view para adicionar/editar
+        Contas contas = id != null ? contasService.get(id) : new Contas();
         mv.addObject("contas", contas);
 
         List<Categoria> categoria = categoriaService.listAll();
@@ -62,18 +71,16 @@ public class ContasController {
     @PostMapping("/save")
     public ModelAndView save(@Valid @ModelAttribute("contas") Contas contas, BindingResult result) {
         if (result.hasErrors()) {
-            return add(contas);
+            return new ModelAndView("contas/adicionar"); // Retorna à página de adição/edição em caso de erro
         }
 
         if (contas.getCategoria() == null || !categoriaService.existsById(contas.getCategoria().getId())) {
             result.rejectValue("categoria", "error.categoria", "Categoria não encontrada.");
-            return add(contas);
+            return new ModelAndView("contas/adicionar"); // Retorna à página de adição/edição em caso de erro
         }
 
         contasService.save(contas);
-
-        ModelAndView mv = new ModelAndView("redirect:/contas/listar");// Redireciona para evitar resubmissão
-        return mv;
+        return new ModelAndView("redirect:/contas/listar"); // Redireciona para evitar resubmissão
     }
 
     @GetMapping("/delete/{id}")
@@ -83,8 +90,7 @@ public class ContasController {
     }
 
     @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable("id") Long id) {
-        return add(contasService.get(id));
+    public ModelAndView edit(@PathVariable("id") Long id) {
+        return addForm(id); // Reutiliza o método de adicionar/editar para carregar dados
     }
-
 }
