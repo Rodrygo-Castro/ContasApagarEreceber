@@ -1,67 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+    layout:decorate="~{fragments/layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <title>Nova Conta</title>
+    <title>Página Inicial</title>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
 </head>
 
 <body>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4><strong>Cadastrar Categorias</strong></h4>
-            </div>
 
-            <div class="card-body">
-                <form th:object="${categoria}" th:action="@{/categorias/save}" method="post">
-                    <fieldset>
-                        <div class="form-group row" th:if="${#fields.hasErrors()}">
-                            <div class="col-md-6">
-                                <div class="alert alert-danger">
-                                    <div>
-                                        <!-- Itera sobre os erros detalhados -->
-                                        <span th:each="error : ${#fields.detailedErrors()}" th:text="${error.message}">
-                                            Erro</span>
+    <div layout:fragment="content">
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4><strong>Cadastrar Categorias</strong></h4>
+                </div>
+
+                <div class="card-body">
+                    <form th:object="${categoria}" th:action="@{/categorias/save}" method="post">
+                        <fieldset>
+                            <div class="form-group row" th:if="${#fields.hasErrors()}">
+                                <div class="col-md-6">
+                                    <div class="alert alert-danger">
+                                        <div>
+                                            <!-- Itera sobre os erros detalhados -->
+                                            <span th:each="error : ${#fields.detailedErrors()}"
+                                                th:text="${error.message}">
+                                                Erro</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="id" class="col-sm-2 col-form-label">Id</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="id" th:field="*{id}" readonly>
+                            <div class="form-group row">
+                                <label for="id" class="col-sm-2 col-form-label">Id</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="id" th:field="*{id}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="nome" th:field="*{nome}"
+                                        placeholder="Digite o nome da  categoria">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group row justify-content-between">
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-danger btn-block" th:href="@{/categorias/listar}">Voltar</a>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nome" th:field="*{nome}"
-                                    placeholder="Digite o nome da  categoria">
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <div class="form-group row justify-content-between">
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary btn-block">Salvar</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-danger btn-block" th:href="@{/categorias/listar}">Voltar</a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
