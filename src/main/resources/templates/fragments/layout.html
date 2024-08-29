@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <title th:layout-title="Título">Default Title</title>
+    <!-- Inclusão do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Outros estilos e scripts -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            padding-top: 70px; /* Ajuste este valor para corresponder à altura do seu navbar fixo */
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        .content {
+            flex: 1;
+        }
+        .footer {
+            background-color: #f8f9fa; /* Ajuste conforme necessário */
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar fixo no topo -->
+    <div layout:fragment="navbar" th:replace="fragments/navbar :: navbar"></div>
+
+    <div layout:fragment="content">
+        <!-- Conteúdo da página principal -->
+    </div>
+
+    <!-- Incluindo o rodapé -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Inclusão do JavaScript do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
